@@ -41,6 +41,7 @@ api.post(
 	},
 	async (c) => {
 		const interaction: APIInteraction = await c.req.json();
+
 		if (interaction.type === InteractionType.Ping) {
 			return c.json<APIInteractionResponse>({
 				type: InteractionResponseType.Pong,

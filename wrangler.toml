@@ -7,9 +7,6 @@ compatibility_flags = [ "nodejs_compat" ]
 [observability.logs]
 enabled = true
 
-# [vars]
-# MY_VAR = "my-variable"
-
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
 # id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
