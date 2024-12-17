@@ -26,9 +26,13 @@ const superchat: RESTPostAPIApplicationCommandsJSONBody = {
 	],
 };
 
-const token = process.env["DISCORD_TOKEN"]!;
-const applicationId = process.env["DISCORD_APPLICATION_ID"]!;
-const guildId = process.env["DISCORD_GUILD_ID"]!;
+const token = process.env.DISCORD_TOKEN;
+const applicationId = process.env.DISCORD_APPLICATION_ID;
+// const guildId = process.env.DISCORD_GUILD_ID;
+
+if (!token || !applicationId) {
+	throw new Error("Missing token or application ID in environment secrets");
+}
 
 const rest = new REST({ version: "10" }).setToken(token);
 
