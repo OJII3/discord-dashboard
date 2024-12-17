@@ -47,6 +47,17 @@ api.post(
 				type: InteractionResponseType.Pong,
 			});
 		}
+
+		if (interaction.type == InteractionType.MessageComponent) {
+			return c.json<APIInteractionResponse>({
+				type: InteractionResponseType.Modal,
+				data: {
+					title: "Hello, World!",
+					custom_id: "button1",
+					components: [],
+				},
+			});
+		}
 	},
 );
 
