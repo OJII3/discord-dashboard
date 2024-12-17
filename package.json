@@ -2,7 +2,8 @@
 	"name": "discord-dashboard",
 	"scripts": {
 		"dev": "wrangler dev",
-		"deploy": "wrangler deploy --minify"
+		"deploy": "wrangler deploy --minify",
+		"fmt": "biome check . --write"
 	},
 	"dependencies": {
 		"@biomejs/biome": "^1.9.4",
