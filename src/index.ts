@@ -32,10 +32,8 @@ api.post(
 			timestamp,
 			c.env["DISCORD_PUBLIC_KEY"],
 		);
-		console.log(body, signature);
-		console.log(isValid);
 
-		if (isValid) {
+		if (!isValid) {
 			return c.json({ status: 401, message: "Unauthorized" }, 401);
 		}
 
