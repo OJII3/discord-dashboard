@@ -35,9 +35,8 @@ api.get(
 	// ),
 	async (c, next) => {
 		const data = c.req.json();
-		config();
 
-		const superchat: RESTPostAPIApplicationCommandsJSONBody = {
+		const command: RESTPostAPIApplicationCommandsJSONBody = {
 			name: "testcommand",
 			description: "this is test",
 			options: [
@@ -55,22 +54,16 @@ api.get(
 			],
 		};
 
-		const token = process.env.DISCORD_TOKEN;
-		const applicationId = process.env.DISCORD_APPLICATION_ID;
-		// const guildId = process.env.DISCORD_GUILD_ID;
+		const token = c.env.DISCORD_TOKEN;
+		const applicationId = c.env.DISCORD_APPLICATION_ID;
 
 		if (!token || !applicationId) {
 			throw new Error("Missing token or application ID in environment secrets");
 		}
 
 		const rest = new REST({ version: "10" }).setToken(token);
-
-		// await rest.put(Routes.applicationGuildCommands(applicationId, guildId), {
-		//   body: [superchat],
-		// });
-
 		await rest.put(Routes.applicationCommands(applicationId), {
-			body: [superchat],
+			body: [command],
 		});
 
 		return c.json({ status: 200, message: "OK" });
