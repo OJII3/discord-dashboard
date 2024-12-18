@@ -44,7 +44,6 @@ const HandleCommand: InteractionHandler<
 							type: ComponentType.TextInput,
 							custom_id: "textinput",
 							label: "テキスト",
-							value: "text",
 							style: TextInputStyle.Short,
 						},
 					],
@@ -60,9 +59,31 @@ const ModalSubmitHandler: InteractionHandler<
 	return {
 		type: InteractionResponseType.ChannelMessageWithSource,
 		data: {
-			content: interaction.type.toString(),
+			attachments: [],
+			tts: true,
+			allowed_mentions: {
+				roles: ["@everyone"],
+			},
+			thread_name: "test",
+			poll: {
+				question: {
+					text: "test",
+				},
+				answers: [
+					{
+						poll_media: {
+							text: "test",
+							emoji: {
+								id: "123",
+								name: "test",
+								animated: true,
+							},
+						},
+					},
+				],
+			},
 		},
-	};
+	} satisfies APIInteractionResponse;
 };
 
 const MessageComponentHandler: InteractionHandler<
