@@ -1,5 +1,5 @@
 {
-	"name": "app-worker",
+	"name": "app-workers",
 	"scripts": {
 		"dev": "wrangler dev",
 		"deploy": "wrangler deploy --minify",
