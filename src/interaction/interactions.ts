@@ -59,9 +59,6 @@ const ModalSubmitHandler: InteractionHandler<
 	return {
 		type: InteractionResponseType.ChannelMessageWithSource,
 		data: {
-			attachments: [],
-			tts: false,
-			thread_name: "test",
 			poll: {
 				question: {
 					text: "test",
@@ -70,11 +67,11 @@ const ModalSubmitHandler: InteractionHandler<
 					{
 						poll_media: {
 							text: "test",
-							emoji: {
-								id: "123",
-								name: "test",
-								animated: true,
-							},
+						},
+					},
+					{
+						poll_media: {
+							text: "test2",
 						},
 					},
 				],
