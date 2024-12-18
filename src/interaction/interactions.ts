@@ -11,30 +11,30 @@ import type { Bindings } from "./types";
 
 const RespondToInteraction: Record<
 	InteractionType,
-	(interaction: APIInteraction) => APIInteractionResponse
+	(interaction: APIInteraction) => Promise<APIInteractionResponse>
 > = {
-	[InteractionType.Ping]: (_) => ({
+	[InteractionType.Ping]: async (_) => ({
 		type: InteractionResponseType.Pong,
 	}),
-	[InteractionType.ModalSubmit]: (_) => ({
+	[InteractionType.ModalSubmit]: async (_) => ({
 		type: InteractionResponseType.ChannelMessageWithSource,
 		data: {
 			content: "モーダルが送信されました",
 		},
 	}),
-	[InteractionType.MessageComponent]: (_) => ({
+	[InteractionType.MessageComponent]: async (_) => ({
 		type: InteractionResponseType.ChannelMessageWithSource,
 		data: {
 			content: "ボタンが押されました",
 		},
 	}),
-	[InteractionType.ApplicationCommand]: (_) => ({
+	[InteractionType.ApplicationCommand]: async (_) => ({
 		type: InteractionResponseType.ChannelMessageWithSource,
 		data: {
 			content: "コマンドが実行されました",
 		},
 	}),
-	[InteractionType.ApplicationCommandAutocomplete]: (_) => ({
+	[InteractionType.ApplicationCommandAutocomplete]: async (_) => ({
 		type: InteractionResponseType.ChannelMessageWithSource,
 		data: {
 			content: "オートコンプリートが実行されました",
