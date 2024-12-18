@@ -38,19 +38,19 @@ api.get(
 		config();
 
 		const superchat: RESTPostAPIApplicationCommandsJSONBody = {
-			name: "superchat",
-			description: "スーパーチャットを送ります",
+			name: "testcommand",
+			description: "this is test",
 			options: [
 				{
 					type: ApplicationCommandOptionType.Integer,
-					name: "金額",
-					description: "スーパーチャットの金額",
+					name: "int",
+					description: "int",
 					required: true,
 				},
 				{
 					type: ApplicationCommandOptionType.String,
-					name: "コメント",
-					description: "スーパーチャットのコメント",
+					name: "comment",
+					description: "comment",
 				},
 			],
 		};
@@ -72,6 +72,8 @@ api.get(
 		await rest.put(Routes.applicationCommands(applicationId), {
 			body: [superchat],
 		});
+
+		return c.json({ status: 200, message: "OK" });
 	},
 );
 
