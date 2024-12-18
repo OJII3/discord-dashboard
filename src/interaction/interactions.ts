@@ -43,7 +43,7 @@ const HandleCommand: InteractionHandler<
 						{
 							type: ComponentType.TextInput,
 							custom_id: "textinput",
-							label: "テキスト",
+							label: `テキスト: ${interaction.data.guild_id}`,
 							style: TextInputStyle.Short,
 						},
 					],
@@ -61,9 +61,6 @@ const ModalSubmitHandler: InteractionHandler<
 		data: {
 			attachments: [],
 			tts: false,
-			allowed_mentions: {
-				roles: ["@everyone"],
-			},
 			thread_name: "test",
 			poll: {
 				question: {
