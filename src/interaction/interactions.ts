@@ -46,5 +46,9 @@ export const InteractionHandleMiddleware = createMiddleware<{
 	Bindings: Bindings;
 }>(async (c) => {
 	const interaction: APIInteraction = await c.req.json();
-	RespondToInteraction[interaction.type](interaction);
+	const payload = RespondToInteraction[interaction.type](interaction);
+
+	const formData = new FormData();
+	formData.set("payload_json", JSON.stringify(payload));
+	return new Response(formData, { status: 200 });
 });
