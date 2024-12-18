@@ -1,6 +1,7 @@
 import { REST } from "@discordjs/rest";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { z } from "zod";
 import { InteractionHandleMiddleware } from "./interaction/interactions";
@@ -10,6 +11,7 @@ import { RegisterCommandMiddleware } from "./register";
 
 const api = new Hono<{ Bindings: Bindings }>()
 	.use(logger())
+	.use("/*", cors())
 	.get("/", (c) => {
 		return c.text("OK");
 	})
