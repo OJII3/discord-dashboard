@@ -12,8 +12,7 @@
       {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
-            nodejs-slim_22
-            nodePackages.pnpm
+            nodejs_22
             bun
           ];
         };

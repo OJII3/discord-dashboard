@@ -5,7 +5,6 @@ import {
 	type RESTPostAPIApplicationCommandsJSONBody,
 	Routes,
 } from "discord-api-types/v10";
-import { config } from "dotenv";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 // import { z } from "zod";
