@@ -3,6 +3,7 @@
 	"scripts": {
 		"dev": "turbo dev",
 		"deploy": "wrangler deploy --minify",
+    "build": "turbo build",
 		"lint": "biome check .",
 		"fmt": "biome check . --write",
 		"check-types": "turbo check-types",
