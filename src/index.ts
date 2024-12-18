@@ -25,7 +25,7 @@ api.post(
 	InteractionHandleMiddleware,
 );
 
-api.post(
+api.get(
 	"/register",
 	// zValidator(
 	// 	"form",
