@@ -60,7 +60,7 @@ const ModalSubmitHandler: InteractionHandler<
 		type: InteractionResponseType.ChannelMessageWithSource,
 		data: {
 			attachments: [],
-			tts: true,
+			tts: false,
 			allowed_mentions: {
 				roles: ["@everyone"],
 			},
