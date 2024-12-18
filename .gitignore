@@ -38,3 +38,22 @@ lerna-debug.log*
 
 # turbo
 /.turbo
+
+# workspaces
+apps/*/node_modules/
+apps/*/.turbo
+apps/*/dist/
+apps/*/.next
+apps/*/out
+apps/*/next-env.d.ts
+apps/*/*.tsbuildinfo
+# env
+apps/*/.env
+apps/*/.env.production
+apps/*/.dev.vars
+
+# vercel
+**/.vercel
+
+# typescript
+*.tsbuildinfo

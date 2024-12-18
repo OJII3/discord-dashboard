@@ -1,15 +1,17 @@
 {
 	"name": "discord-dashboard",
 	"scripts": {
-		"dev": "wrangler dev",
+		"dev": "turbo dev",
 		"deploy": "wrangler deploy --minify",
 		"lint": "biome check .",
 		"fmt": "biome check . --write",
+		"check-types": "turbo check-types",
 		"check": "bun lint && turbo check-types"
 	},
 	"workspaces": ["apps/*"],
 	"dependencies": {
-		"app-worker": "workspace:*",
+		"app-workers": "workspace:*",
+		"app-pages": "workspace:*",
 		"@biomejs/biome": "^1.9.4",
 		"@hono/zod-validator": "^0.4.2",
 		"zod": "^3.24.1"
