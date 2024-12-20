@@ -1,5 +1,6 @@
-import { REST } from "@discordjs/rest";
+import { REST, RouteData } from "@discordjs/rest";
 import { zValidator } from "@hono/zod-validator";
+import { type RESTGetAPIGuildRolesResult, Routes } from "discord-api-types/v10";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
@@ -23,16 +24,20 @@ const api = new Hono<{ Bindings: Bindings }>()
 	)
 	.post(
 		"/test",
-		zValidator(
-			"json",
-			z.object({
-				title: z.string(),
-				description: z.string(),
-			}),
-		),
+		// zValidator(
+		// 	"json",
+		// 	z.object({
+		// 		title: z.string(),
+		// 		description: z.string(),
+		// 	}),
+		// ),
 		async (c) => {
-			const { title, description } = c.req.valid("json");
-			return c.json({ title, description, content: "Hello, World!" }, 200);
+			// const { title, description } = c.req.valid("json");
+			const rest = new REST({ version: "10" }).setToken(c.env.DISCORD_TOKEN);
+			const data = (await rest.get(
+				Routes.guildRoles(c.env.DISCORD_GUILD_ID),
+			)) as RESTGetAPIGuildRolesResult;
+			return c.json(data, 200);
 		},
 	);
 
