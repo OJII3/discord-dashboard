@@ -1,3 +1,5 @@
+import { ExpressAuth } from "@auth/express";
+import Discord from "@auth/express/providers/discord";
 import { REST, RouteData } from "@discordjs/rest";
 import { zValidator } from "@hono/zod-validator";
 import { type RESTGetAPIGuildRolesResult, Routes } from "discord-api-types/v10";
@@ -16,6 +18,9 @@ const api = new Hono<{ Bindings: Bindings }>()
 	.get("/", (c) => {
 		return c.text("OK");
 	})
+	.get("/auth/*", (c, next) =>
+		ExpressAuth({ providers: [Discord] })(c.req, c.res, next),
+	)
 	.get("/register", RegisterCommandMiddleware)
 	.post(
 		"/interaction",

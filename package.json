@@ -13,9 +13,10 @@
 	},
 	"workspaces": ["apps/*"],
 	"dependencies": {
-		"app-workers": "workspace:*",
-		"app-pages": "workspace:*",
+		"@auth/express": "^0.8.4",
 		"@hono/zod-validator": "^0.4.2",
+		"app-pages": "workspace:*",
+		"app-workers": "workspace:*",
 		"hono": "^4.6.14",
 		"zod": "^3.24.1"
 	},
