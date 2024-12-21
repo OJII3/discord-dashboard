@@ -19,6 +19,7 @@ jobs:
       - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
+          workingDirectory: "apps/worker"
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           secrets: |
             DISCORD_PUBLIC_KEY
