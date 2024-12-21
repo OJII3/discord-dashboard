@@ -17,7 +17,7 @@ const api = new Hono<{ Bindings: Bindings }>()
 	.use(
 		"*",
 		initAuthConfig((c) => ({
-			secret: c.env.SECRET,
+			secret: c.env.AUTH_SECRET,
 			providers: [
 				Discord({
 					clientId: c.env.AUTH_DISCORD_ID,
@@ -28,6 +28,7 @@ const api = new Hono<{ Bindings: Bindings }>()
 	)
 	.use("/api/auth/*", authHandler())
 	.use("/api/*", verifyAuth())
+	.use("/api/protected", async (c) => c.json(c.get("authUser"), 200))
 	.get("/", (c) => c.text("OK", 200))
 	.get("/auth/*", (c, next) =>
 		ExpressAuth({ providers: [Discord] })(c.req, c.res, next),
