@@ -51,3 +51,4 @@ jobs:
         with:
           workingDirectory: "apps/page"
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: pages deploy
