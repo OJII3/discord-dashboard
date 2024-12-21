@@ -1,5 +1,5 @@
-name = "discord-dashboard"
-main = "apps/app-workers/src/index.ts"
+name = "discord-dashboard-worker"
+main = "src/index.ts"
 compatibility_date = "2024-12-16"
 account_id = "c400a4d044bf4655006c3245036fdb68"
 

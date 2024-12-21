@@ -1,5 +1,5 @@
 {
-	"name": "app-workers",
+	"name": "worker",
 	"main": "src/index.ts",
 	"scripts": {
 		"dev": "wrangler dev",

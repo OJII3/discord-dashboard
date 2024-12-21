@@ -2,9 +2,7 @@
 	"name": "discord-dashboard",
 	"scripts": {
 		"dev": "turbo dev",
-		"deploy": "wrangler deploy --minify",
 		"build": "turbo build",
-		"build:pages": "cd apps/app-pages && next build",
 		"lint": "biome check .",
 		"fmt": "biome check . --write",
 		"check-types": "turbo check-types",
@@ -15,8 +13,8 @@
 	"dependencies": {
 		"@auth/express": "^0.8.4",
 		"@hono/zod-validator": "^0.4.2",
-		"app-pages": "workspace:*",
-		"app-workers": "workspace:*",
+		"page": "workspace:*",
+		"worker": "workspace:*",
 		"hono": "^4.6.14",
 		"zod": "^3.24.1"
 	},
@@ -26,5 +24,8 @@
 		"typescript": "^5.7.2",
 		"wrangler": "^3.88.0"
 	},
-	"packageManager": "bun@1.1.38"
+	"packageManager": "bun@1.1.38",
+	"trustedDependencies": [
+		"@biomejs/biome"
+	]
 }
