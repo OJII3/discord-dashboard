@@ -37,20 +37,19 @@ lerna-debug.log*
 .direnv/
 
 # turbo
-/.turbo
+.turbo
 
 # workspaces
-apps/*/node_modules/
-apps/*/.turbo
-apps/*/dist/
-apps/*/.next
-apps/*/out
-apps/*/next-env.d.ts
-apps/*/*.tsbuildinfo
+node_modules/
+.next
+dist
+out
+next-env.d.ts
+*.tsbuildinfo
 # env
-apps/*/.env
-apps/*/.env.production
-apps/*/.dev.vars
+.env
+.env.production
+.dev.vars
 
 # vercel
 **/.vercel

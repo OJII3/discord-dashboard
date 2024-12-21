@@ -1,6 +1,6 @@
 name = "discord-dashboard-worker"
 main = "src/index.ts"
-compatibility_date = "2024-12-16"
+compatibility_date = "2024-12-05"
 account_id = "c400a4d044bf4655006c3245036fdb68"
 
 compatibility_flags = [ "nodejs_compat" ]
