@@ -1,6 +1,6 @@
 import { verifyKey } from "discord-interactions";
 import { createMiddleware } from "hono/factory";
-import type { Bindings } from "./types";
+import type { Bindings } from "../bindings";
 
 export const InteractionVerificationMiddleware = createMiddleware<{
 	Bindings: Bindings;

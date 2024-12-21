@@ -5,35 +5,28 @@ import {
 	Routes,
 } from "discord-api-types/v10";
 import { createMiddleware } from "hono/factory";
+import type { Bindings } from "./bindings";
 
-export const RegisterCommandMiddleware = createMiddleware(async (c, _next) => {
-	const command: RESTPostAPIApplicationCommandsJSONBody = {
+export const applicationCommands = {
+	ping: {
 		name: "ping",
 		description: "Ping!",
 		options: [
 			{
-				type: ApplicationCommandOptionType.Integer,
-				name: "int",
-				description: "int",
-			},
-			{
 				type: ApplicationCommandOptionType.String,
-				name: "comment",
-				description: "comment",
+				name: "arg",
+				description: "Argument",
 			},
 		],
-	};
+	},
+} as const satisfies Record<string, RESTPostAPIApplicationCommandsJSONBody>;
 
-	const token = c.env.DISCORD_TOKEN;
-	const applicationId = c.env.DISCORD_APPLICATION_ID;
-
-	if (!token || !applicationId) {
-		throw new Error("Missing token or application ID in environment secrets");
-	}
-
-	const rest = new REST({ version: "10" }).setToken(token);
-	await rest.put(Routes.applicationCommands(applicationId), {
-		body: [command],
+export const RegisterCommandMiddleware = createMiddleware<{
+	Bindings: Bindings;
+}>(async (c, _next) => {
+	const rest = new REST({ version: "10" }).setToken(c.env.DISCORD_TOKEN);
+	await rest.put(Routes.applicationCommands(c.env.DISCORD_APPLICATION_ID), {
+		body: Object.entries(applicationCommands).map((kv) => kv[1]),
 	});
 
 	return c.text("Command registered", 200);

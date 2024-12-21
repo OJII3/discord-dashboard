@@ -13,24 +13,32 @@ import {
 	ComponentType,
 	InteractionResponseType,
 	InteractionType,
+	MessageFlags,
 	TextInputStyle,
 } from "discord-api-types/v10";
 import { createMiddleware } from "hono/factory";
-import type { Bindings } from "./types";
+import type { Bindings } from "../bindings";
+import { applicationCommands } from "../register";
 
 type InteractionHandler<T extends APIInteraction> = (
 	interaction: T,
 ) => Promise<APIInteractionResponse>;
 
-const HandlePing: InteractionHandler<APIPingInteraction> = async () => {
-	return {
-		type: InteractionResponseType.Pong,
-	};
-};
+const HandlePing: InteractionHandler<APIPingInteraction> = async () => ({
+	type: InteractionResponseType.Pong,
+});
 
 const HandleCommand: InteractionHandler<
 	APIApplicationCommandInteraction
 > = async (interaction) => {
+	if (interaction.data.name === applicationCommands.ping.name) {
+		return {
+			type: InteractionResponseType.ChannelMessageWithSource,
+			data: {
+				content: `Pong\nGuild ID:${interaction.guild_id}\nUser ID:${interaction.user?.id}`,
+			},
+		};
+	}
 	return {
 		type: InteractionResponseType.Modal,
 		data: {
@@ -57,25 +65,10 @@ const ModalSubmitHandler: InteractionHandler<
 	APIModalSubmitInteraction
 > = async (interaction) => {
 	return {
-		type: InteractionResponseType.ChannelMessageWithSource,
+		type: InteractionResponseType.UpdateMessage,
 		data: {
-			poll: {
-				question: {
-					text: "test",
-				},
-				answers: [
-					{
-						poll_media: {
-							text: "test",
-						},
-					},
-					{
-						poll_media: {
-							text: "test2",
-						},
-					},
-				],
-			},
+			content: "UpdateMessage",
+			flags: MessageFlags.Ephemeral,
 		},
 	} satisfies APIInteractionResponse;
 };
@@ -120,7 +113,5 @@ export const InteractionHandleMiddleware = createMiddleware<{
 	const interaction: APIInteraction = await c.req.json();
 	const payload = await HandleInteraction(interaction);
 
-	const formData = new FormData();
-	formData.set("payload_json", JSON.stringify(payload));
-	return new Response(formData, { status: 200 });
+	return c.json(payload, 200);
 });

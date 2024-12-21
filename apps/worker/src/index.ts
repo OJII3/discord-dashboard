@@ -6,8 +6,8 @@ import { type RESTGetAPIGuildRolesResult, Routes } from "discord-api-types/v10";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import type { Bindings } from "./bindings";
 import { InteractionHandleMiddleware } from "./interaction/interactions";
-import type { Bindings } from "./interaction/types";
 import { InteractionVerificationMiddleware } from "./interaction/verify";
 import { RegisterCommandMiddleware } from "./register";
 
@@ -23,13 +23,10 @@ const api = new Hono<{ Bindings: Bindings }>()
 	)
 	.use("/api/auth/*", authHandler())
 	.use("/api/*", verifyAuth())
-	.get("/", (c) => {
-		return c.text("OK");
-	})
+	.get("/", (c) => c.text("OK", 200))
 	.get("/auth/*", (c, next) =>
 		ExpressAuth({ providers: [Discord] })(c.req, c.res, next),
 	)
-	.get("/ping", (c) => c.text("Pong", 200))
 	.get("/register", RegisterCommandMiddleware)
 	.post(
 		"/interaction",
