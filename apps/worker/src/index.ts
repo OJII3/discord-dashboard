@@ -1,4 +1,3 @@
-import { ExpressAuth } from "@auth/express";
 import Discord from "@auth/express/providers/discord";
 import { REST } from "@discordjs/rest";
 import { authHandler, initAuthConfig, verifyAuth } from "@hono/auth-js";
@@ -30,9 +29,6 @@ const api = new Hono<{ Bindings: Bindings }>()
 	.use("/api/*", verifyAuth())
 	.use("/api/protected", async (c) => c.json(c.get("authUser"), 200))
 	.get("/", (c) => c.text("OK", 200))
-	.get("/auth/*", (c, next) =>
-		ExpressAuth({ providers: [Discord] })(c.req, c.res, next),
-	)
 	.get("/register", RegisterCommandMiddleware)
 	.post(
 		"/interaction",
