@@ -43,11 +43,11 @@ jobs:
           bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun run build
+        env:
+          NEXT_PUBLIC_WORKER_URL: ${{ secrets.NEXT_PUBLIC_WORKER_URL }}
       - run: cd apps/page
       - name: Deploy Page
         uses: cloudflare/wrangler-action@v3
         with:
           workingDirectory: "apps/page"
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        env:
-          NEXT_PUBLIC_WORKER_URL: ${{ secrets.NEXT_PUBLIC_WORKER_URL }}
