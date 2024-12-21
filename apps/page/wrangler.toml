@@ -1,10 +1,7 @@
 name = "discord-dashboard-page"
 compatibility_date = "2024-12-05"
-account_id = "c400a4d044bf4655006c3245036fdb68"
+pages_build_output_dir = "./out"
 compatibility_flags = [ "nodejs_compat" ]
-
-[observability.logs]
-enabled = true
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
