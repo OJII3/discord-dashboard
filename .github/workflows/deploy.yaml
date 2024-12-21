@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  setup:
-    name: Setup
+  deploy-worker:
+    name: Deploy Worker
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,12 +15,6 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-
-  deploy-worker:
-    name: Deploy Worker
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - run: cd apps/worker
       - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
@@ -38,3 +32,21 @@ jobs:
           DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
+
+  deploy-page:
+    name: Deploy Page
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: cd apps/page
+      - name: Deploy Page
+        uses: cloudflare/wrangler-action@v3
+        with:
+          workingDirectory: "apps/page"
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        env:
+          NEXT_PUBLIC_WORKER_URL: ${{ secrets.NEXT_PUBLIC_WORKER_URL }}
