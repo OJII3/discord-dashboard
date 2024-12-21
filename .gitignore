@@ -47,10 +47,9 @@ out
 next-env.d.ts
 *.tsbuildinfo
 # env
-.env
-.env.production
+.env*
 .dev.vars
-!/.env.example
+!.env.example
 
 # vercel
 **/.vercel

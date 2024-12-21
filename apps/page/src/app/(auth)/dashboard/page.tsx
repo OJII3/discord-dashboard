@@ -16,6 +16,7 @@ import {
 	ProgressCircle,
 	VStack,
 } from "@chakra-ui/react";
+import { useSession } from "@hono/auth-js/react";
 import type { InferRequestType } from "hono/client";
 import useSWR from "swr";
 
@@ -27,6 +28,7 @@ export default function Home() {
 		return await res.json();
 	};
 
+	const { data: session, status } = useSession();
 	const { data, error, isLoading } = useSWR("/", fetcher({}));
 
 	if (isLoading)
@@ -44,6 +46,8 @@ export default function Home() {
 			<GridItem>
 				<header>
 					<Heading>Discord Dashboard</Heading>
+					<div>{session?.user?.id}</div>
+					<div>{status.toString()}</div>
 				</header>
 			</GridItem>
 			<Center as={GridItem}>

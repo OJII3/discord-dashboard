@@ -18,7 +18,12 @@ const api = new Hono<{ Bindings: Bindings }>()
 		"*",
 		initAuthConfig((c) => ({
 			secret: c.env.SECRET,
-			providers: [Discord({})],
+			providers: [
+				Discord({
+					clientId: c.env.AUTH_DISCORD_ID,
+					clientSecret: c.env.AUTH_DISCORD_SECRET,
+				}),
+			],
 		})),
 	)
 	.use("/api/auth/*", authHandler())
