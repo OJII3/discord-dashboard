@@ -13,7 +13,7 @@ import { RegisterCommandMiddleware } from "./register";
 
 const api = new Hono<{ Bindings: Bindings }>()
 	.use(logger())
-	.use("/*", cors())
+	.use("*", cors())
 	.use(
 		"*",
 		initAuthConfig((c) => ({
@@ -29,6 +29,7 @@ const api = new Hono<{ Bindings: Bindings }>()
 	.get("/auth/*", (c, next) =>
 		ExpressAuth({ providers: [Discord] })(c.req, c.res, next),
 	)
+	.get("/ping", (c) => c.text("Pong", 200))
 	.get("/register", RegisterCommandMiddleware)
 	.post(
 		"/interaction",

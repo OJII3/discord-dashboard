@@ -1,9 +1,7 @@
-'use client'
+"use client";
 
 import { hc } from "hono/client";
 import type { APIType } from "worker";
+import { env } from "./env";
 
-if (process.env.NEXT_PUBLIC_WORKER_URL === undefined) {
-	throw new Error("NEXT_PUBLIC_WORKER_URL is not defined");
-}
-export const client = hc<APIType>(process.env.NEXT_PUBLIC_WORKER_URL);
+export const client = hc<APIType>(env.WORKER_URL);

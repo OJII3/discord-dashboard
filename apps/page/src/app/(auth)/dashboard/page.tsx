@@ -12,15 +12,7 @@ export default function Home() {
 		return await res.json();
 	};
 
-	const { data, error, isLoading } = useSWR(
-		"api-hello",
-		fetcher({
-			json: {
-				title: "Hello",
-				description: "World",
-			},
-		}),
-	);
+	const { data, error, isLoading } = useSWR("/", fetcher({}));
 
 	if (isLoading) return <div>Loading...</div>;
 	if (error || !data) return <div>Error</div>;

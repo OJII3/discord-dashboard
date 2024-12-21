@@ -6,12 +6,10 @@ import {
 } from "discord-api-types/v10";
 import { createMiddleware } from "hono/factory";
 
-export const RegisterCommandMiddleware = createMiddleware(async (c, next) => {
-	const data = c.req.json();
-
+export const RegisterCommandMiddleware = createMiddleware(async (c, _next) => {
 	const command: RESTPostAPIApplicationCommandsJSONBody = {
-		name: "testcommand",
-		description: "this is test",
+		name: "ping",
+		description: "Ping!",
 		options: [
 			{
 				type: ApplicationCommandOptionType.Integer,
@@ -38,5 +36,5 @@ export const RegisterCommandMiddleware = createMiddleware(async (c, next) => {
 		body: [command],
 	});
 
-	return c.json({ status: 200, message: "OK" });
+	return c.text("Command registered", 200);
 });
