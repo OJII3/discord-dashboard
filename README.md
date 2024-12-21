@@ -1,4 +1,26 @@
-Next.js + Hono RPC on Cloudflare Stacks (Bun Workspace & Turborepo)
+# Next.js + Hono on Cloudflare Stacks (Bun Workspace & Turborepo)
+
+## Features
+
+- Monorepo: Bun Workspace & Turborepo
+- Platform: Cloudflare Pages & Workers
+- Backend: Hono
+- Frontend: Next.js + SWR + Hono RPC
+
+## Setup
+
+If you are using `nix` and `direnv`, you can run the following commands:
+
+```sh
+direnv allow
+bun install
+```
+
+## Commands
+
+```sh
+bun dev # run dev in parallel
+```
 
 ```sh
 bun lint # lint
@@ -6,14 +28,6 @@ bun lint # lint
 
 ```sh
 bun fmt # format
-```
-
-```sh
-bun deploy # deploy hono to workers
-```
-
-```sh
-bun dev # run dev in parallel
 ```
 
 ```sh

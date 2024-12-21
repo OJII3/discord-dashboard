@@ -1,6 +1,7 @@
 import { ExpressAuth } from "@auth/express";
 import Discord from "@auth/express/providers/discord";
 import { REST } from "@discordjs/rest";
+import { authHandler, initAuthConfig, verifyAuth } from "@hono/auth-js";
 import { type RESTGetAPIGuildRolesResult, Routes } from "discord-api-types/v10";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
@@ -13,6 +14,15 @@ import { RegisterCommandMiddleware } from "./register";
 const api = new Hono<{ Bindings: Bindings }>()
 	.use(logger())
 	.use("/*", cors())
+	.use(
+		"*",
+		initAuthConfig((c) => ({
+			secret: c.env.SECRET,
+			providers: [Discord({})],
+		})),
+	)
+	.use("/api/auth/*", authHandler())
+	.use("/api/*", verifyAuth())
 	.get("/", (c) => {
 		return c.text("OK");
 	})
