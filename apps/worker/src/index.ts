@@ -13,21 +13,6 @@ import { RegisterCommandMiddleware } from "./register";
 const api = new Hono<{ Bindings: Bindings }>()
 	.use(logger())
 	.use("*", cors())
-	.use(
-		"*",
-		initAuthConfig((c) => ({
-			secret: c.env.AUTH_SECRET,
-			providers: [
-				Discord({
-					clientId: c.env.AUTH_DISCORD_ID,
-					clientSecret: c.env.AUTH_DISCORD_SECRET,
-				}),
-			],
-		})),
-	)
-	.use("/api/auth/*", authHandler())
-	.use("/api/*", verifyAuth())
-	.use("/api/protected", async (c) => c.json(c.get("authUser"), 200))
 	.get("/", (c) => c.text("OK", 200))
 	.get("/register", RegisterCommandMiddleware)
 	.post(
@@ -43,6 +28,22 @@ const api = new Hono<{ Bindings: Bindings }>()
 		)) as RESTGetAPIGuildRolesResult;
 		return c.json(data, 200);
 	});
+
+api.use(
+	"*",
+	initAuthConfig((c) => ({
+		secret: c.env.AUTH_SECRET,
+		providers: [
+			Discord({
+				clientId: c.env.AUTH_DISCORD_ID,
+				clientSecret: c.env.AUTH_DISCORD_SECRET,
+			}),
+		],
+	})),
+);
+api.use("/api/auth/*", authHandler());
+api.use("/api/*", verifyAuth());
+api.use("/api/protected", async (c) => c.json(c.get("authUser"), 200));
 
 export default api;
 

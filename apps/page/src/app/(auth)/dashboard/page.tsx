@@ -8,15 +8,14 @@ import {
 import { client } from "@/libs/client";
 import {
 	Center,
-	Container,
+	Flex,
 	Grid,
 	GridItem,
 	Heading,
 	List,
-	ProgressCircle,
 	VStack,
 } from "@chakra-ui/react";
-import { useSession } from "@hono/auth-js/react";
+import { signIn, useOauthPopupLogin, useSession } from "@hono/auth-js/react";
 import type { InferRequestType } from "hono/client";
 import useSWR from "swr";
 
@@ -28,6 +27,9 @@ export default function Home() {
 		return await res.json();
 	};
 
+	const { popUpSignin } = useOauthPopupLogin("discord", {
+		callbackUrl: "/auth/discord",
+	});
 	const { data: session, status } = useSession();
 	const { data, error, isLoading } = useSWR("/", fetcher({}));
 
@@ -42,16 +44,18 @@ export default function Home() {
 	if (error || !data) return <div>Error</div>;
 
 	return (
-		<Grid as="main" minH="vh" templateRows="auto 1fr">
+		<Grid minH="vh" templateRows="auto 1fr">
 			<GridItem>
-				<header>
+				<Flex as="header">
 					<Heading>Discord Dashboard</Heading>
 					<div>{session?.user?.id}</div>
 					<div>{status.toString()}</div>
-				</header>
+					<Button onClick={() => signIn("discord")}>Sign In</Button>
+					<Button onClick={popUpSignin}>Popup Sign In</Button>
+				</Flex>
 			</GridItem>
 			<Center as={GridItem}>
-				<VStack>
+				<VStack as="main">
 					<Button
 						variant="surface"
 						onClick={() => {
