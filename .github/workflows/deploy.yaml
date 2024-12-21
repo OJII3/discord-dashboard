@@ -42,6 +42,7 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
+      - run: bun run build
       - run: cd apps/page
       - name: Deploy Page
         uses: cloudflare/wrangler-action@v3
