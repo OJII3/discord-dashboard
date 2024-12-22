@@ -10,9 +10,7 @@ import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { ping } from "./commands/ping";
 
-const app = new Hono().basePath("/api");
-
-app.post("/interaction", async (c) => {
+const app = new Hono().basePath("/api").post("/interaction", async (c) => {
 	const interaction: APIInteraction = await c.req.json();
 	switch (interaction.type) {
 		case InteractionType.Ping: {
