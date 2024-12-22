@@ -1,6 +1,7 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "discord-dashboard"
 main = ".open-next/worker.js"
+account_id = "c400a4d044bf4655006c3245036fdb68"
 
 compatibility_date = "2024-12-20"
 compatibility_flags = ["nodejs_compat"]
