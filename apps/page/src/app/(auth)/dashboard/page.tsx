@@ -26,7 +26,7 @@ import { useEffect } from "react";
 import useSWR from "swr";
 
 export default function Home() {
-	const $get = client.get_roles.$post;
+	const $get = client.api.get_roles.$post;
 
 	const fetcher = (arg: InferRequestType<typeof $get>) => async () => {
 		const res = await $get(arg);
