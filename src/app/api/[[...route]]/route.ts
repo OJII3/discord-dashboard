@@ -46,4 +46,3 @@ const GET = handle(app);
 const POST = handle(app);
 
 export { GET, POST, type AppType };
-export const runtime = "edge";
