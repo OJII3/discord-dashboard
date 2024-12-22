@@ -10,7 +10,7 @@ import { InteractionHandleMiddleware } from "./interaction/interactions";
 import { InteractionVerificationMiddleware } from "./interaction/verify";
 import { RegisterCommandMiddleware } from "./register";
 
-const api = new Hono<{ Bindings: Bindings }>()
+const api = new Hono<{ Bindings: Bindings }>({ strict: false })
 	.use(logger())
 	.use("*", cors())
 	.get("/", (c) => c.text("OK", 200))

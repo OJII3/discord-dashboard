@@ -15,8 +15,14 @@ import {
 	List,
 	VStack,
 } from "@chakra-ui/react";
-import { signIn, useOauthPopupLogin, useSession } from "@hono/auth-js/react";
+import {
+	authConfigManager,
+	signIn,
+	useOauthPopupLogin,
+	useSession,
+} from "@hono/auth-js/react";
 import type { InferRequestType } from "hono/client";
+import { useEffect } from "react";
 import useSWR from "swr";
 
 export default function Home() {
@@ -27,11 +33,17 @@ export default function Home() {
 		return await res.json();
 	};
 
-	const { popUpSignin } = useOauthPopupLogin("discord", {
-		callbackUrl: "/auth/discord",
+	const { popUpSignin, status: popupStatus } = useOauthPopupLogin("discord", {
+		callbackUrl: "/auth/success",
 	});
 	const { data: session, status } = useSession();
 	const { data, error, isLoading } = useSWR("/", fetcher({}));
+
+	useEffect(() => {
+		if (popupStatus === "success") {
+			authConfigManager.getConfig().fetchSession({ event: "refetch" });
+		}
+	}, [popupStatus]);
 
 	if (isLoading)
 		return (
