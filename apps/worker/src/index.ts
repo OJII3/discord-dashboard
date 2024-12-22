@@ -12,7 +12,7 @@ import { RegisterCommandMiddleware } from "./register";
 
 const api = new Hono<{ Bindings: Bindings }>({ strict: false })
 	.use(logger())
-	// .use("*", cors())
+	.use("*", cors())
 	.get("/api/", (c) => c.text("OK", 200))
 	.get("/api/register", RegisterCommandMiddleware)
 	.post(

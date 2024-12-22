@@ -3,9 +3,9 @@
 import { env } from "@/libs/env";
 import { authConfigManager, SessionProvider } from "@hono/auth-js/react";
 
-// authConfigManager.setConfig({
-//   baseUrl: env.WORKER_URL,
-// })
+authConfigManager.setConfig({
+  baseUrl: env.WORKER_URL,
+})
 
 export default function Template({
 	children,

@@ -71,7 +71,7 @@ export default function Home() {
 					<Button
 						variant="surface"
 						onClick={() => {
-							client.register.$get();
+							client.api.register.$get();
 						}}
 					>
 						Re Register Application Commands
