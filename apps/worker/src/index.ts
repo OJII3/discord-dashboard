@@ -12,15 +12,15 @@ import { RegisterCommandMiddleware } from "./register";
 
 const api = new Hono<{ Bindings: Bindings }>({ strict: false })
 	.use(logger())
-	.use("*", cors())
-	.get("/", (c) => c.text("OK", 200))
-	.get("/register", RegisterCommandMiddleware)
+	// .use("*", cors())
+	.get("/api", (c) => c.text("OK", 200))
+	.get("/api/register", RegisterCommandMiddleware)
 	.post(
-		"/interaction",
+		"/api/interaction",
 		InteractionVerificationMiddleware,
 		InteractionHandleMiddleware,
 	)
-	.post("/get_roles", async (c) => {
+	.post("/api/get_roles", async (c) => {
 		const rest = new REST({ version: "10" }).setToken(c.env.DISCORD_TOKEN);
 		console.log(Routes.guildRoles(c.env.DISCORD_GUILD_ID));
 		const data = (await rest.get(
@@ -30,7 +30,7 @@ const api = new Hono<{ Bindings: Bindings }>({ strict: false })
 	});
 
 api.use(
-	"*",
+	"/*",
 	initAuthConfig((c) => ({
 		secret: c.env.AUTH_SECRET,
 		providers: [
