@@ -1,39 +1,36 @@
-# Next.js + Hono on Cloudflare Stacks (Bun Workspace & Turborepo)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Features
+## Getting Started
 
-- Monorepo: Bun Workspace & Turborepo
-- Platform: Cloudflare Pages & Workers
-- Backend: Hono
-- Frontend: Next.js + SWR + Hono RPC
+First, run the development server:
 
-## Setup
-
-If you are using `nix` and `direnv`, you can run the following commands:
-
-```sh
-direnv allow
-bun install
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Commands
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```sh
-bun dev # run dev in parallel
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```sh
-bun lint # lint
-```
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-```sh
-bun fmt # format
-```
+## Learn More
 
-```sh
-bun check-types # check-types in parallel
-```
+To learn more about Next.js, take a look at the following resources:
 
-```sh
-bun check # lint & check-types
-```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

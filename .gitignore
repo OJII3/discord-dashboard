@@ -1,58 +1,51 @@
-# prod
-dist/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dev
-.yarn/
-!.yarn/releases
-.vscode/*
-!.vscode/launch.json
-!.vscode/*.code-snippets
-.idea/workspace.xml
-.idea/usage.statistics.xml
-.idea/shelf
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
 
-# deps
-node_modules/
-.wrangler
+# testing
+/coverage
 
-# env
-.env
-.env.production
-.dev.vars
+# next.js
+/.next/
+/out/
 
-# logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# production
+/build
 
 # misc
 .DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*
+.env*.local
+!.env.example
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+
+# Cloudflare related
+/.open-next
+/.wrangler
+
+# wrangler files
+.wrangler
+.dev.vars
 
 # direnv
 .envrc
 .direnv/
-
-# turbo
-.turbo
-
-# workspaces
-node_modules/
-.next
-dist
-out
-next-env.d.ts
-*.tsbuildinfo
-# env
-.env*
-.dev.vars
-!.env.example
-
-# vercel
-**/.vercel
-
-# typescript
-*.tsbuildinfo
