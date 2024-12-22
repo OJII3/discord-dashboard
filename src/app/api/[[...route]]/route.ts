@@ -1,4 +1,5 @@
 import { getEnv } from "@/libs/bindings";
+import { ping } from "@/libs/commands/ping";
 import { REST } from "@discordjs/rest";
 import {
 	type APIInteraction,
@@ -8,7 +9,6 @@ import {
 } from "discord-api-types/v10";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
-import { ping } from "./_commands/ping";
 
 const app = new Hono().basePath("/api").post("/interaction", async (c) => {
 	const interaction: APIInteraction = await c.req.json();
