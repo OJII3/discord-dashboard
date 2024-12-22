@@ -13,7 +13,7 @@ import { RegisterCommandMiddleware } from "./register";
 const api = new Hono<{ Bindings: Bindings }>({ strict: false })
 	.use(logger())
 	// .use("*", cors())
-	.get("/api", (c) => c.text("OK", 200))
+	.get("/api/", (c) => c.text("OK", 200))
 	.get("/api/register", RegisterCommandMiddleware)
 	.post(
 		"/api/interaction",
@@ -30,7 +30,7 @@ const api = new Hono<{ Bindings: Bindings }>({ strict: false })
 	});
 
 api.use(
-	"/*",
+	"/api/*",
 	initAuthConfig((c) => ({
 		secret: c.env.AUTH_SECRET,
 		providers: [
