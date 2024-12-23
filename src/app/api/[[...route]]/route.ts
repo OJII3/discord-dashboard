@@ -28,15 +28,15 @@ const app = new Hono().basePath("/api");
 // for Hno RPC
 const route = app
 	.get("/ping", async (c) => c.text("pong", 200))
-	.get("/register_commands", async (c) => {
-		const rest = new REST({ version: "10" }).setToken(getEnv(c).DISCORD_TOKEN);
-		await rest
-			.post(Routes.applicationCommands(getEnv(c).DISCORD_APPLICATION_ID), {
-				body: [ping.command],
-			})
-			.catch((e) => c.text(`error: ${e}`, 500));
-		return c.text("registered", 200);
-	});
+	// .get("/register_commands", async (c) => {
+	// 	const rest = new REST({ version: "10" }).setToken(getEnv(c).DISCORD_TOKEN);
+	// 	await rest
+	// 		.post(Routes.applicationCommands(getEnv(c).DISCORD_APPLICATION_ID), {
+	// 			body: [ping.command],
+	// 		})
+	// 		.catch((e) => c.text(`error: ${e}`, 500));
+	// 	return c.text("registered", 200);
+	// });
 
 type AppType = typeof route;
 const GET = handle(app);
