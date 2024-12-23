@@ -1,5 +1,10 @@
 import { getRequestContext } from "@cloudflare/next-on-pages";
-import { type APIInteraction, InteractionType } from "discord-api-types/v10";
+import {
+	type APIInteraction,
+	type APIInteractionResponse,
+	InteractionResponseType,
+	InteractionType,
+} from "discord-api-types/v10";
 import { verifyKey } from "discord-interactions";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
@@ -33,7 +38,10 @@ const app = new Hono().basePath("/discord").get(
 	async (c) => {
 		const interaction: APIInteraction = await c.req.json();
 		if (interaction.type === InteractionType.Ping) {
-			return c.json({ type: InteractionType.Ping }, 200);
+			return c.json<APIInteractionResponse>(
+				{ type: InteractionResponseType.Pong },
+				200,
+			);
 		}
 		if (interaction.type === InteractionType.ApplicationCommand) {
 			if (interaction.data.name === ping.command.name) {
