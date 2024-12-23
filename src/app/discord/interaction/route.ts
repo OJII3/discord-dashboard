@@ -7,9 +7,8 @@ import {
 } from "discord-api-types/v10";
 import { verifyKey } from "discord-interactions";
 import { Hono } from "hono";
-import { cors } from "hono/cors";
 import { handle } from "hono/vercel";
-import { ping } from "../commands/ping";
+import { ping } from "./commands/ping";
 
 export const runtime = "edge";
 
@@ -50,7 +49,7 @@ const app = new Hono().basePath("/discord").post(
 		if (interaction.type === InteractionType.ApplicationCommand) {
 			if (interaction.data.name === ping.command.name) {
 				const data = await ping.execute(interaction);
-				return c.json(data, 200);
+				return c.json<APIInteractionResponse>(data, 200);
 			}
 		}
 	},

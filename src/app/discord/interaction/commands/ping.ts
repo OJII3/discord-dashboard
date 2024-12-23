@@ -1,11 +1,17 @@
 import {
 	ActionRowBuilder,
+	ComponentBuilder,
+	MessageComponentBuilder,
 	ModalBuilder,
 	SlashCommandBuilder,
 	SlashCommandStringOption,
 	TextInputBuilder,
 } from "@discordjs/builders";
-import type { APIApplicationCommandInteraction } from "discord-api-types/v10";
+import {
+	type APIApplicationCommandInteraction,
+	type APIInteractionResponse,
+	InteractionResponseType,
+} from "discord-api-types/v10";
 
 const command = new SlashCommandBuilder()
 	.setName("ping")
@@ -20,19 +26,16 @@ const command = new SlashCommandBuilder()
 
 const execute = async (
 	interaction: APIApplicationCommandInteraction,
-) => {
-	return new ModalBuilder()
-		.setTitle(`Locale: ${interaction.locale}`)
-		.setCustomId("modal")
-		.addComponents(
-			new ActionRowBuilder<TextInputBuilder>().setComponents(
-				new TextInputBuilder()
-					.setLabel("Label")
-					.setPlaceholder("Placeholder")
-					.setCustomId("text_input"),
-			),
-		)
-		.toJSON();
+): Promise<APIInteractionResponse> => {
+	return {
+		type: InteractionResponseType.ChannelMessageWithSource,
+		data: {
+			content: `Pong!
+Guild ID: ${interaction.guild_id}
+User ID: ${interaction.user?.id}
+Interaction Name: ${interaction.data.name}`,
+		},
+	};
 };
 
 export const ping = { command, execute };

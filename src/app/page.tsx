@@ -9,5 +9,12 @@ export default function Home() {
 		queryFn: () => client.api.ping.$get().then((res) => res.text()),
 	});
 
-	return <div>Hello, world! Status: {data}</div>;
+	return (
+		<div>
+			<div>Hello, world! Status: {data}</div>
+			<button type="button" onClick={() => client.api.register_commands.$post()}>
+				Register Commands
+			</button>
+		</div>
+	);
 }
