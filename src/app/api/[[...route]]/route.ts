@@ -9,7 +9,7 @@ const app = new Hono().basePath("/api");
 
 const route = app.get("/ping", async (c) => {
 	const { env } = getRequestContext();
-	return c.text(env.DISCORD_PUBLIC_KEY, 200);
+	return c.text(env.DISCORD_PUBLIC_KEY ? "OK" : "No env", 200);
 });
 
 type AppType = typeof route;
