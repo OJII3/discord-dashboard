@@ -12,6 +12,5 @@ const route = app.get("/ping", async (c) => {
 	return c.text(env.DISCORD_PUBLIC_KEY ? "OK" : "No env", 200);
 });
 
-type AppType = typeof route;
-const GET = handle(app);
-export { GET, type AppType };
+export type AppType = typeof route;
+export const { GET, POST } = { GET: handle(app), POST: handle(app) };
