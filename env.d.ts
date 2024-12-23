@@ -2,7 +2,10 @@
 // by running `wrangler types --env-interface CloudflareEnv env.d.ts`
 
 interface CloudflareEnv {
-  DISCORD_PUBLIC_KEY: string;
-  DISCORD_APPLICATION_ID: string;
-  DISCORD_TOKEN: string;
+	DISCORD_PUBLIC_KEY: string;
+	DISCORD_APPLICATION_ID: string;
+	DISCORD_TOKEN: string;
+	AUTH_SECRET: string;
+	AUTH_DISCORD_CLIENT_ID: string;
+	AUTH_DISCORD_CLIENT_SECRET: string;
 }
