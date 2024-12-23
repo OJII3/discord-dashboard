@@ -10,7 +10,8 @@
 		"lint": "biome check .",
 		"fmt": "biome check . --write --unsafe",
 		"build:worker": "opennextjs-cloudflare",
-		"deploy:worker": "opennextjs-cloudflare && wrangler deploy",
+		"deploy:worker": "wrangler deploy",
+		"dev:worker": "wrangler dev",
 		"preview": "opennextjs-cloudflare && wrangler dev",
 		"cf-typegen": "wrangler types --env-interface  CloudflareEnv env.d.ts"
 	},

@@ -10,7 +10,9 @@ import {
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 
-const app = new Hono().basePath("/api").post("/interaction", async (c) => {
+const app = new Hono().basePath("/api");
+
+app.post("/interaction", async (c) => {
 	const interaction: APIInteraction = await c.req.json();
 	switch (interaction.type) {
 		case InteractionType.Ping: {
@@ -23,13 +25,14 @@ const app = new Hono().basePath("/api").post("/interaction", async (c) => {
 	}
 });
 
+// for Hno RPC
 const route = app
 	.get("/ping", async (c) =>
 		getEnv(c).DISCORD_PUBLIC_KEY
 			? c.text("pong", 200)
 			: c.text("no pubkey", 200),
 	)
-	.get("/register_command", async (c) => {
+	.get("/register_commands", async (c) => {
 		const rest = new REST({ version: "10" }).setToken(getEnv(c).DISCORD_TOKEN);
 		await rest
 			.post(Routes.applicationCommands(getEnv(c).DISCORD_APPLICATION_ID), {
