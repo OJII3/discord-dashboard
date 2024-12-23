@@ -27,11 +27,7 @@ const app = new Hono().basePath("/api");
 
 // for Hno RPC
 const route = app
-	// .get("/ping", async (c) =>
-	// 	getEnv(c).DISCORD_PUBLIC_KEY
-	// 		? c.text("pong", 200)
-	// 		: c.text("no pubkey", 200),
-	// )
+	.get("/ping", async (c) => c.text("pong", 200))
 	.get("/register_commands", async (c) => {
 		const rest = new REST({ version: "10" }).setToken(getEnv(c).DISCORD_TOKEN);
 		await rest
