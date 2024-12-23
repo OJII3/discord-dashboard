@@ -22,9 +22,11 @@ const app = new Hono()
 			const { env } = getRequestContext();
 			const signature = c.req.header("X-Signature-Ed25519");
 			const timestamp = c.req.header("X-Signature-Timestamp");
+
 			if (!signature || !timestamp) {
 				return c.json({ status: 401, message: "Unauthorized" }, 401);
 			}
+
 			const body = await c.req.text();
 			const isValid = await verifyKey(
 				body,
@@ -41,12 +43,13 @@ const app = new Hono()
 		},
 		async (c) => {
 			const interaction: APIInteraction = await c.req.json();
+
 			if (interaction.type === InteractionType.Ping) {
-				return c.json<APIInteractionResponse>(
-					{ type: InteractionResponseType.Pong },
-					200,
-				);
+				return c.json<APIInteractionResponse>({
+					type: InteractionResponseType.Pong,
+				});
 			}
+
 			if (interaction.type === InteractionType.ApplicationCommand) {
 				if (interaction.data.name === ping.command.name) {
 					const data = await ping.execute(interaction);
