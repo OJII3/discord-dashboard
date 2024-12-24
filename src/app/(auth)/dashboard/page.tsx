@@ -11,15 +11,10 @@ import { useState } from "react";
 export default function DashboardPage() {
 	const [isRegistering, setIsRegistering] = useState(false);
 
-	const { data: session } = useSession();
 	const { data, isLoading } = useQuery({
 		queryKey: ["member"],
 		queryFn: () => client.api.guild.members.$get().then((res) => res.json()),
 	});
-
-	if (!session) {
-		redirect("/404");
-	}
 
 	return (
 		<VStack>
