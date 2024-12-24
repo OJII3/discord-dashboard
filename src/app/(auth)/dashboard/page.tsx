@@ -11,7 +11,7 @@ import { useState } from "react";
 export default function DashboardPage() {
 	const [isRegistering, setIsRegistering] = useState(false);
 
-	const { data, isLoading } = useQuery({
+	const { data, isLoading, error } = useQuery({
 		queryKey: ["member"],
 		queryFn: () => client.api.guild.members.$get().then((res) => res.json()),
 	});
@@ -24,8 +24,8 @@ export default function DashboardPage() {
 					colorPalette="cyan"
 					variant="surface"
 					size="sm"
-					onClick={() => {
-						signOut();
+					onClick={async () => {
+						await signOut();
 						redirect("/");
 					}}
 				>
@@ -43,7 +43,7 @@ export default function DashboardPage() {
 			>
 				Register Commands
 			</Button>
-
+			{error && <p>{error.message}</p>}
 			{isLoading || !data ? (
 				<p>Loading...</p>
 			) : (
