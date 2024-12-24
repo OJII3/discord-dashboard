@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { client } from "@/libs/client";
-import { HStack, Heading, VStack } from "@chakra-ui/react";
+import { HStack, Heading, Table, VStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -48,7 +48,24 @@ export default function DashboardPage() {
 			{isLoading || !data ? (
 				<p>Loading...</p>
 			) : (
-				<pre>{JSON.stringify(data, null, 2)}</pre>
+				<Table.Root>
+					<Table.Header>
+						<Table.Row>
+							<Table.Cell>Username</Table.Cell>
+							<Table.Cell>Discriminator</Table.Cell>
+							<Table.Cell>ID</Table.Cell>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
+						{data.map((member) => (
+							<Table.Row key={member.user.id}>
+								<Table.Cell>{member.user.username}</Table.Cell>
+								<Table.Cell>{member.user.discriminator}</Table.Cell>
+								<Table.Cell>{member.user.id}</Table.Cell>
+							</Table.Row>
+						))}
+					</Table.Body>
+				</Table.Root>
 			)}
 		</VStack>
 	);
