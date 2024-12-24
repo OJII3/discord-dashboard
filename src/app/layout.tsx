@@ -1,5 +1,6 @@
 import { Provider } from "@/components/ui/provider";
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 import { Geist, Geist_Mono } from "next/font/google";
 
 const geistSans = Geist({
