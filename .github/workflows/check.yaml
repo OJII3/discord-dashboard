@@ -29,8 +29,8 @@ jobs:
       - name: lint
         run: bun lint
 
-      - name: type-check
-        run: bun type-check
+      - name: check-types
+        run: bun check-types
 
       # - name: build
       #   run: bun build:pages
