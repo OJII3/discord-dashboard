@@ -1,6 +1,8 @@
 "use client";
 
+import { Center, Spinner } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 export default function Template({
@@ -8,11 +10,19 @@ export default function Template({
 }: {
 	children: Readonly<ReactNode>;
 }) {
-	const { data: session } = useSession();
-	return (
-		<>
-			{session ? "authed" : "not authed"}
-			{children}
-		</>
-	);
+	const { data: session, status } = useSession();
+
+	if (status === "loading") {
+		return (
+			<Center minH="vh">
+				<Spinner size="xl" colorPalette="cyan" />
+			</Center>
+		);
+	}
+
+	if (status === "unauthenticated" || !session) {
+		notFound();
+	}
+
+	return <>{children}</>;
 }
