@@ -5,21 +5,20 @@ import { client } from "@/libs/client";
 import { HStack, Heading, VStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { signOut, useSession } from "next-auth/react";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function DashboardPage() {
 	const [isRegistering, setIsRegistering] = useState(false);
 
+	const { data: session } = useSession();
 	const { data, isLoading } = useQuery({
 		queryKey: ["member"],
 		queryFn: () => client.api.guild.members.$get().then((res) => res.json()),
 	});
 
-	const { data: session } = useSession();
-
 	if (!session) {
-		notFound();
+		redirect("/404");
 	}
 
 	return (
