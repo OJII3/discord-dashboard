@@ -13,7 +13,8 @@ export default function DashboardPage() {
 
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["member"],
-		queryFn: () => client.api.guild.members.$get().then((res) => res.json()),
+		queryFn: async () =>
+			await client.api.guild.members.$get().then((res) => res.json()),
 	});
 
 	return (
