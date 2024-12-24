@@ -34,7 +34,10 @@ const route = app
 		const { env } = getRequestContext();
 		const rest = new REST({ version: "10" }).setToken(env.DISCORD_TOKEN);
 		const res = await rest.get(Routes.guildMembers(env.DISCORD_GUILD_ID));
-		return c.json<RESTGetAPIGuildMembersResult>(res as RESTGetAPIGuildMembersResult, 200);
+		return c.json<RESTGetAPIGuildMembersResult>(
+			res as RESTGetAPIGuildMembersResult,
+			200,
+		);
 	});
 export type AppType = typeof route;
 export const { GET, POST } = { GET: handle(app), POST: handle(app) };
