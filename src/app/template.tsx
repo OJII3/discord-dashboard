@@ -13,10 +13,7 @@ export default function Template({
 }) {
 	return (
 		<QueryClientProvider client={queryClient}>
-      <SessionProvider>
-
-      {children}
-      </SessionProvider>
-    </QueryClientProvider>
+			<SessionProvider>{children}</SessionProvider>
+		</QueryClientProvider>
 	);
 }
