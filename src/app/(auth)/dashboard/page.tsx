@@ -2,9 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { client } from "@/libs/client";
-import { HStack, Heading, Spacer, VStack } from "@chakra-ui/react";
+import { HStack, Heading, VStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 
 export default function DashboardPage() {
@@ -14,6 +14,12 @@ export default function DashboardPage() {
 		queryKey: ["member"],
 		queryFn: () => client.api.guild.members.$get().then((res) => res.json()),
 	});
+
+	const { data: session } = useSession();
+
+	if (!session) {
+		return null;
+	}
 
 	return (
 		<VStack>

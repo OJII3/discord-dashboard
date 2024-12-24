@@ -3,8 +3,11 @@ import type { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
+// import { handlers } from "@/auth";
 import NextAuth from "next-auth";
 import Discord from "next-auth/providers/discord";
+
+// export const { GET, POST } = handlers;
 
 export const GET = (req: NextRequest) => {
 	const env = getRequestContext().env;

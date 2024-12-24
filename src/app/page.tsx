@@ -3,14 +3,16 @@
 import { Button } from "@/components/ui/button";
 import { Center, Grid, GridItem, HStack, Heading } from "@chakra-ui/react";
 import { signIn, useSession } from "next-auth/react";
+// import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 export default function Home() {
 	const { data: session } = useSession();
 
 	if (session) {
-		return redirect("/dashboard");
+		redirect("/dashboard");
 	}
+
 	return (
 		<Grid gridTemplateRows="auto 1fr" minH="vh">
 			<GridItem as={HStack}>
