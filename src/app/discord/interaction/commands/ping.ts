@@ -6,7 +6,7 @@ import {
 	type APIApplicationCommandInteraction,
 	type APIInteractionResponse,
 	InteractionResponseType,
-    MessageFlags,
+	MessageFlags,
 } from "discord-api-types/v10";
 
 const command = new SlashCommandBuilder()
@@ -30,7 +30,7 @@ const execute = async (
 Guild ID: ${interaction.guild_id}
 User ID: ${interaction.user?.id}
 Interaction Name: ${interaction.data.name}`,
-      flags: MessageFlags.Ephemeral
+			flags: MessageFlags.Ephemeral,
 		},
 	};
 };
