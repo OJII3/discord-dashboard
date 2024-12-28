@@ -1,12 +1,16 @@
 "use client";
 
+import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { client } from "@/libs/client";
-import { HStack, Heading, Table, VStack } from "@chakra-ui/react";
+import { Badge, HStack, Heading, Table, VStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
+import { Routes } from "discord-api-types/v10";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import { MemberList } from "./_components/MemberList";
 
 export default function DashboardPage() {
 	const [isRegistering, setIsRegistering] = useState(false);
@@ -14,7 +18,12 @@ export default function DashboardPage() {
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["member"],
 		queryFn: async () =>
-			await client.api.guild.members.$get({}).then((res) => res.json()),
+			await client.api.guild.members.$get().then((res) => res.json()),
+	});
+
+	const { data: roles } = useQuery({
+		queryKey: ["roles"],
+		queryFn: async () => await client.api.guild.roles.$get(),
 	});
 
 	return (
@@ -44,29 +53,7 @@ export default function DashboardPage() {
 			>
 				Register Commands
 			</Button>
-			{error && <p>{error.message}</p>}
-			{isLoading || !data ? (
-				<p>Loading...</p>
-			) : (
-				<Table.Root>
-					<Table.Header>
-						<Table.Row>
-							<Table.Cell>Username</Table.Cell>
-							<Table.Cell>Discriminator</Table.Cell>
-							<Table.Cell>ID</Table.Cell>
-						</Table.Row>
-					</Table.Header>
-					<Table.Body>
-						{data.map((member) => (
-							<Table.Row key={member.user.id}>
-								<Table.Cell>{member.user.username}</Table.Cell>
-								<Table.Cell>{member.user.discriminator}</Table.Cell>
-								<Table.Cell>{member.user.id}</Table.Cell>
-							</Table.Row>
-						))}
-					</Table.Body>
-				</Table.Root>
-			)}
+			<MemberList />
 		</VStack>
 	);
 }

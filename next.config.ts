@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
 	experimental: {
 		optimizePackageImports: ["@chakra-ui/react"],
 	},
+	images: {
+		remotePatterns: [{ hostname: "cdn.discordapp.com" }],
+	},
 };
 
 export default nextConfig;

@@ -3,6 +3,7 @@ import { getRequestContext } from "@cloudflare/next-on-pages";
 import { REST } from "@discordjs/rest";
 import {
 	type RESTGetAPIGuildMembersResult,
+	type RESTGetAPIGuildRolesResult,
 	Routes,
 } from "discord-api-types/v10";
 import { logger } from "hono/logger";
@@ -30,14 +31,23 @@ const route = app
 			.catch((e) => c.text(e.message, 500));
 		return c.text("OK", 200);
 	})
+	.get("/guild/roles", async (c) => {
+		const { env } = getRequestContext();
+		const rest = new REST({ version: "10" }).setToken(env.DISCORD_TOKEN);
+		const res = (await rest.get(
+			Routes.guildRoles(env.DISCORD_GUILD_ID),
+		)) as RESTGetAPIGuildRolesResult;
+		return c.json(res, 200);
+	})
 	.get("/guild/members", async (c) => {
 		const { env } = getRequestContext();
 		const rest = new REST({ version: "10" }).setToken(env.DISCORD_TOKEN);
-		const res = await rest.get(Routes.guildMembers(env.DISCORD_GUILD_ID));
-		return c.json<RESTGetAPIGuildMembersResult>(
-			res as RESTGetAPIGuildMembersResult,
-			200,
-		);
+		const res = (await rest.get(Routes.guildMembers(env.DISCORD_GUILD_ID), {
+			body: {
+				query: "ojii3",
+			},
+		})) as RESTGetAPIGuildMembersResult;
+		return c.json(res, 200);
 	});
 export type AppType = typeof route;
 export const { GET, POST } = { GET: handle(app), POST: handle(app) };
