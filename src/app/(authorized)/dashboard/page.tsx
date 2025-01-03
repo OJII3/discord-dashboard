@@ -53,6 +53,8 @@ export default function DashboardPage() {
 			>
 				Register Commands
 			</Button>
+
+
 			<MemberList />
 		</VStack>
 	);

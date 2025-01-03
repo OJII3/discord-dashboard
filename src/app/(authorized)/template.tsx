@@ -10,7 +10,7 @@ export default function Template({
 }: {
 	children: Readonly<ReactNode>;
 }) {
-	const { status } = useSession();
+	const { status, data: session } = useSession();
 
 	if (status === "loading") {
 		return (
@@ -23,6 +23,8 @@ export default function Template({
 	if (status === "unauthenticated") {
 		notFound();
 	}
+
+	console.log(session?.accessToken);
 
 	return <>{children}</>;
 }
